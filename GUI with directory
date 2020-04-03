@@ -1,0 +1,85 @@
+import tkinter as tk
+from tkinter.font import Font
+from tkinter.filedialog import askdirectory
+from tkinter import *
+from tkinter.ttk import *
+import os
+
+
+
+def directoryChooser():
+    directory = askdirectory()
+    os.chdir(directory)
+    for files in os.listdir(directory):
+        if files.endswith(".mp3") or files.endswith(".wav"):
+            list_of_songs.append(files)
+            print(files)
+
+
+
+
+HEIGHT = 600
+WIDTH = 815
+
+root = tk.Tk()
+root.minsize(815,700)
+root.maxsize(865,700)
+root.title("MPy3 Player")
+
+list_of_songs = []
+
+index = 0
+
+canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
+canvas.pack()
+
+my_font = Font(family="Ink Free", size=16)
+titleText = Label(root, text = "MPy3 Player V1.0")
+titleText.place(relx=0.415, rely=0.05)
+
+
+
+background_image = tk.PhotoImage(file='discodancing.png')
+background_label = tk.Label(root, image=background_image)
+background_label.place(relwidth=1, relheight=1)
+
+frame = tk.Frame(root, bg='#87ceeb',bd=5)
+frame.place(relx=0.5, rely=0.15, relwidth=0.75, relheight=0.075, anchor='n')
+
+label = tk.Label(frame, text="Rick Astley - Never gonna give you up", bg='white', font=my_font)
+label.place(relwidth=0.65, relheight=1)
+
+label1 = tk.Label(frame, text="Current Song", bg='white', font=my_font)
+label1.place(relx=0.7, relwidth=0.3, relheight=1)
+
+lowerFrame = tk.Frame(root, bg='#87ceeb', bd=10)
+lowerFrame.place(relx=0.5, rely=0.25, relwidth=0.8, relheight=0.6, anchor='n')
+
+label3 = tk.Label(lowerFrame)
+label3.place(relwidth=1, relheight=1)
+
+song1Frame = tk.Frame(lowerFrame, bg='white', bd=10)
+song1Frame.place(relwidth=1, relheight=0.075)
+
+song2Frame = tk.Frame(lowerFrame, bg='white', bd=10)
+song2Frame.place(relwidth=1, relheight=0.15)
+
+
+buttonFramePrevious = tk.Frame(root, bg='white')
+buttonFramePrevious.place(relx=0.35, rely=0.95, relwidth=0.1, relheight=0.05, anchor='s')
+
+buttonFramePause = tk.Frame(root, bg='#262626')
+buttonFramePause.place(relx=0.5, rely=0.95, relwidth=0.1, relheight=0.05, anchor='s')
+
+buttonFrameNext = tk.Frame(root, bg='white')
+buttonFrameNext.place(relx=0.65, rely=0.95, relwidth=0.075, relheight=0.05, anchor='s')
+
+buttonPrevious = tk.Button(buttonFramePrevious, text="Previous", bg='#2F4F4F', fg='white', bd=5, font=my_font)
+buttonPrevious.pack(side="left", fill='x')
+buttonPause = tk.Button(buttonFramePause, text="Pause", bg='#2F4F4F', fg='white', bd=5, font=my_font)
+buttonPause.pack(side="left", fill='x')
+buttonNext = tk.Button(buttonFrameNext, text="Next", bg='#2F4F4F', fg='white', bd=5, font=my_font)
+buttonNext.pack(side="left", fill='x')
+
+directoryChooser()
+root.mainloop()
